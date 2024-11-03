@@ -29,29 +29,24 @@ class RecetaController extends Controller
 
     public function store(Request $request)
     {
+        // Validar los datos del formulario
         $request->validate([
             'producto_id' => 'required|exists:productos,id',
             'insumo_id' => 'required|exists:insumos,id',
             'cantidad_requerida' => 'required|numeric|min:0',
         ]);
 
-        // Crear el registro en la tabla receta
-        Receta::create([
-            'producto_id' => $request->producto_id,
-            'insumo_id' => $request->insumo_id,
-            'cantidad_requerida' => $request->cantidad_requerida,
-        ]);
+        // Crear la receta
+        $receta = new Receta();
+        $receta->producto_id = $request->producto_id;
+        $receta->insumo_id = $request->insumo_id;
+        $receta->cantidad_requerida = $request->cantidad_requerida;
 
-        // Obtener todas las recetas relacionadas al producto seleccionado
-        $recetasProducto = Receta::where('producto_id', $request->producto_id)->get();
+        // Guardar la receta en la base de datos
+        $receta->save();
 
-        // Usar session()->flash para mantener el modal abierto y pasar datos
-        session()->flash('modalOpen', true);
-        session()->flash('producto_id', $request->producto_id);
-        session()->flash('recetasProducto', $recetasProducto);
-
-        // Recargar la misma vista de creación de recetas
-        return back();
+        // Redirigir con un mensaje de éxito
+        return redirect()->route('receta.index')->with('success', 'Receta creada exitosamente.');
     }
 
 
