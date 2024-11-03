@@ -12,7 +12,7 @@
         <div class="mb-4">
             <label for="productoSelect" class="block text-sm font-medium text-gray-700">Selecciona un Producto:</label>
             <select id="productoSelect"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" onchange="setProductoId(this.value)">
                 <option value="" disabled selected>-- Selecciona un Producto --</option>
                 @foreach ($productos as $producto)
                     <option value="{{ $producto->id }}" {{ (session('producto_id') == $producto->id) ? 'selected' : '' }}>
@@ -153,6 +153,10 @@
             modal.classList.add('hidden');
         }
 
+        function setProductoId(value) {
+            document.getElementById('producto_id').value = value; // Actualiza el producto_id
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             @if (session('modalOpen'))
                 const modal = document.getElementById('myModal');
@@ -161,7 +165,7 @@
                 const productoId = "{{ session('producto_id') }}";
                 if (productoId) {
                     document.getElementById('productoSelect').value = productoId;
-                    document.getElementById('producto_id').value = productoId;
+                    document.getElementById('producto_id').value = productoId; // Asegura que el producto_id se mantenga
                 }
             @endif
         });
