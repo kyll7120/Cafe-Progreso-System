@@ -35,7 +35,7 @@ class RecetaController extends Controller
             'cantidad_requerida' => 'required|numeric|min:0',
         ]);
 
-        // Crear el registro en la tabla receta sin redirigir
+        // Crear el registro en la tabla receta
         Receta::create([
             'producto_id' => $request->producto_id,
             'insumo_id' => $request->insumo_id,
@@ -45,13 +45,13 @@ class RecetaController extends Controller
         // Obtener todas las recetas relacionadas al producto seleccionado
         $recetasProducto = Receta::where('producto_id', $request->producto_id)->get();
 
-        // Mantener la página abierta para agregar más insumos
+        // Usar session()->flash para mantener el modal abierto y pasar datos
         session()->flash('modalOpen', true);
         session()->flash('producto_id', $request->producto_id);
         session()->flash('recetasProducto', $recetasProducto);
 
-        // Recargar la misma vista
-        return redirect()->route('listar.recetas'); // Ajusta esta ruta si es necesario
+        // Recargar la misma vista de creación de recetas
+        return back();
     }
 
 
