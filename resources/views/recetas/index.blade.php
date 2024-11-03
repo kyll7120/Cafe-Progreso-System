@@ -103,90 +103,84 @@
 
 
     <!-- Modal para crear y editar receta-->
-    <div id="myModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50">
-        <div class="bg-white rounded-lg shadow-lg w-1/3">
-            <div class="p-4 border-b flex justify-between">
-                <h5 class="text-lg font-semibold">Crear Nueva Receta</h5>
-                <button onclick="finalizarReceta()" class="text-gray-400 hover:text-gray-600">&times;</button>
-            </div>
-            <div class="p-4">
-                <form id="recetaForm" method="POST" action="{{ route('receta.store') }}">
-                    @csrf
-                    <!-- Seleccionar producto -->
-                    <input type="hidden" name="producto_id" id="producto_id">
+<div id="myModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg shadow-lg w-1/3">
+        <div class="p-4 border-b flex justify-between">
+            <h5 class="text-lg font-semibold">Crear Nueva Receta</h5>
+            <button onclick="finalizarReceta()" class="text-gray-400 hover:text-gray-600">&times;</button>
+        </div>
+        <div class="p-4">
+            <form id="recetaForm" method="POST" action="{{ route('receta.store') }}">
+                @csrf
+                <!-- Seleccionar producto -->
+                <input type="hidden" name="producto_id" id="producto_id">
 
-                    <!-- Seleccionar insumo -->
-                    <div class="mb-4">
-                        <label for="insumo" class="block text-sm font-medium text-gray-700">Insumo:</label>
-                        <select name="insumo_id" id="insumo"
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                            required>
-                            <option value="" disabled selected>-- Selecciona un Insumo --</option>
-                            @foreach ($insumos as $insumo)
-                                <option value="{{ $insumo->id }}">{{ $insumo->nombre }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <!-- Cantidad requerida -->
-                    <div class="mb-4">
-                        <label for="cantidad_requerida" class="block text-sm font-medium text-gray-700">Cantidad
-                            Requerida:</label>
-                        <input type="number" step="0.01" name="cantidad_requerida" id="cantidad_requerida"
-                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                            required>
-                    </div>
-
-                    <button type="submit" onclick=""
-                        class="w-full px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700">Agregar</button>
-                </form>
-
-                <!-- Tabla para mostrar insumos agregados -->
-                <div class="mt-4">
-                    <h6 class="text-lg font-semibold mb-2">Insumos Agregados</h6>
-                    <table class="min-w-full border border-gray-300">
-                        <thead>
-                            <tr>
-                                <th class="border px-4 py-2">Insumo</th>
-                                <th class="border px-4 py-2">Cantidad</th>
-                                <th class="border px-4 py-2">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (session('recetasProducto') && session('recetasProducto')->isNotEmpty())
-                                @foreach (session('recetasProducto') as $receta)
-                                    <tr>
-                                        <td class="border px-4 py-2 text-center">{{ $receta->insumo->nombre }}</td>
-                                        <td class="border px-4 py-2 text-center">{{ $receta->cantidad_requerida }}</td>
-                                        <td class="border px-4 py-2 text-center">
-                                            <form action="{{ route('receta.eliminarInsumo', $receta->id) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-delete" type="submit"
-                                                    onclick="return confirm('¿Seguro de que desea eliminar este insumo?')">
-                                                    <i class="fa fa-fw fa-trash"></i>Eliminar
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="3" class="border px-4 py-2 text-center font-bold">No hay insumos
-                                        agregados a la receta.</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
+                <!-- Seleccionar insumo -->
+                <div class="mb-4">
+                    <label for="insumo" class="block text-sm font-medium text-gray-700">Insumo:</label>
+                    <select name="insumo_id" id="insumo"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        required>
+                        <option value="" disabled selected>-- Selecciona un Insumo --</option>
+                        @foreach ($insumos as $insumo)
+                            <option value="{{ $insumo->id }}">{{ $insumo->nombre }}</option>
+                        @endforeach
+                    </select>
                 </div>
 
-                <button onclick="finalizarReceta()"
-                    class="w-full mt-4 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">Finalizar
-                    Receta</button>
+                <!-- Cantidad requerida -->
+                <div class="mb-4">
+                    <label for="cantidad_requerida" class="block text-sm font-medium text-gray-700">Cantidad Requerida:</label>
+                    <input type="number" step="0.01" name="cantidad_requerida" id="cantidad_requerida"
+                        class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                        required>
+                </div>
+
+                <button type="submit" class="w-full px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700">Agregar</button>
+            </form>
+
+            <!-- Tabla para mostrar insumos agregados -->
+            <div class="mt-4">
+                <h6 class="text-lg font-semibold mb-2">Insumos Agregados</h6>
+                <table class="min-w-full border border-gray-300">
+                    <thead>
+                        <tr>
+                            <th class="border px-4 py-2">Insumo</th>
+                            <th class="border px-4 py-2">Cantidad</th>
+                            <th class="border px-4 py-2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (session('recetasProducto') && session('recetasProducto')->isNotEmpty())
+                            @foreach (session('recetasProducto') as $receta)
+                                <tr>
+                                    <td class="border px-4 py-2 text-center">{{ $receta->insumo->nombre }}</td>
+                                    <td class="border px-4 py-2 text-center">{{ $receta->cantidad_requerida }}</td>
+                                    <td class="border px-4 py-2 text-center">
+                                        <form action="{{ route('receta.eliminarInsumo', $receta->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-delete" type="submit" onclick="return confirm('¿Seguro de que desea eliminar este insumo?')">
+                                                <i class="fa fa-fw fa-trash"></i>Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <tr>
+                                <td colspan="3" class="border px-4 py-2 text-center font-bold">No hay insumos agregados a la receta.</td>
+                            </tr>
+                        @endif
+                    </tbody>
+                </table>
             </div>
+
+            <button onclick="finalizarReceta()" class="w-full mt-4 px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700">Finalizar Receta</button>
         </div>
     </div>
+</div>
+
 
     <script>
         function toggleModal() {
