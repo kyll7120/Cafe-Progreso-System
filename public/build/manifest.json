@@ -9,5 +9,11 @@
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
+  },
+  "resources/views/administracion/scriptAdministracion.js": {
+    "file": "assets/scriptAdministracion-B3J-Rq9r.js",
+    "name": "scriptAdministracion",
+    "src": "resources/views/administracion/scriptAdministracion.js",
+    "isEntry": true
   }
 }
