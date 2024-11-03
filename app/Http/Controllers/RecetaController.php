@@ -53,6 +53,7 @@ class RecetaController extends Controller
         ]);
     }
 
+
     public function showRecetaModal(Request $request)
     {
         // Validar que el producto_id esté presente
