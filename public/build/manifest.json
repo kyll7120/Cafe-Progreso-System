@@ -15,5 +15,29 @@
     "name": "scriptAdministracion",
     "src": "resources/views/administracion/scriptAdministracion.js",
     "isEntry": true
+  },
+  "resources/views/administracion/scriptAsistencia.js": {
+    "file": "assets/scriptAsistencia-Cf8TLRC3.js",
+    "name": "scriptAsistencia",
+    "src": "resources/views/administracion/scriptAsistencia.js",
+    "isEntry": true
+  },
+  "resources/views/evaluaciones/scriptsEvaluaciones.js": {
+    "file": "assets/scriptsEvaluaciones-DB955vHX.js",
+    "name": "scriptsEvaluaciones",
+    "src": "resources/views/evaluaciones/scriptsEvaluaciones.js",
+    "isEntry": true
+  },
+  "resources/views/insumo/scriptsInsumo.js": {
+    "file": "assets/scriptsInsumo-B-QRfB5z.js",
+    "name": "scriptsInsumo",
+    "src": "resources/views/insumo/scriptsInsumo.js",
+    "isEntry": true
+  },
+  "resources/views/productos/scriptsProductos.js": {
+    "file": "assets/scriptsProductos-DYWAxFEV.js",
+    "name": "scriptsProductos",
+    "src": "resources/views/productos/scriptsProductos.js",
+    "isEntry": true
   }
 }

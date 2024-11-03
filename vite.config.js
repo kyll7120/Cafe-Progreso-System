@@ -7,9 +7,13 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',               // Archivo CSS de entrada
                 'resources/js/app.js',                  // Archivo JS de entrada principal
-                'resources/views/administracion/scriptAdministracion.js', // Agrega tu archivo scriptAdministracion.js aquí
+                'resources/views/administracion/scriptAdministracion.js',
+                'resources/views/administracion/scriptAsistencia.js',
+                'resources/views/evaluaciones/scriptsEvaluaciones.js',
+                'resources/views/insumo/scriptsInsumo.js',
+                'resources/views/productos/scriptsProductos.js',
             ],
-            refresh: true,                             // Habilita el refresh automático durante el desarrollo
+            refresh: true,                             
         }),
     ],
     build: {
