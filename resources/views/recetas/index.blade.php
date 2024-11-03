@@ -103,7 +103,7 @@
 
 
     <!-- Modal para crear y editar receta-->
-    <div id="myModal" class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-50">
+    <div id="myModal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black bg-opacity-50">
         <div class="bg-white rounded-lg shadow-lg w-1/3">
             <div class="p-4 border-b flex justify-between">
                 <h5 class="text-lg font-semibold">Crear Nueva Receta</h5>
