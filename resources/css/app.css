@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .sidebar {
+        transition: all 0.4s ease-in-out;
+    }
+}
+
+/*Esto es para que el menu sea responsive NO TOCAR*/
+#menuLateral {
+    @apply movil:w-[3.3rem] movil:hover:w-44 
+tablet:w-[4.3rem] tablet:hover:w-48
+laptop:w-[5.2rem] laptop:hover:w-52
+monitor:w-[6.25rem] monitor:hover:w-60;
+}
+
+/*Icono principal del menu*/
+#iconoMenu {
+    @apply flex items-center 
+movil:mx-0 movil:my-7 movil:space-x-8 movil:px-1
+tablet:mx-2 tablet:my-8 tablet:space-x-8 tablet:px-4
+laptop:mx-1 laptop:my-8 laptop:space-x-8 laptop:px-2
+monitor:mx-0 monitor:my-8 monitor:space-x-8 monitor:px-2;
+}
+
+/*Iconos que están en el menu excepto el icono principal*/
+#iconosMenu {
+    /* Utiliza la directiva @apply para aplicar estilos de Tailwind CSS */
+    @apply flex items-center /* */ 
+  movil:mx-4 movil:space-x-2 movil:px-0
+  tablet:mx-2 tablet:space-x-3 tablet:px-2
+  laptop:mx-3 laptop:space-x-4 laptop:px-3 
+  monitor:mx-4 monitor:space-x-9 monitor:px-4;
+}
+
+/*lista de los iconos*/
+#listaIconosMenu {
+    @apply tracking-wide 
+    movil:space-y-0.5
+    tablet:space-y-0.5
+    laptop:space-y-0
+    monitor:space-y-4;
+}
+
+#tamanioIconos {
+    @apply movil:w-4 movil:h-4
+    tablet:w-8 tablet:h-8
+    laptop:w-8 laptop:h-8    
+    monitor:w-8 monitor:h-8;
+}
+
+#encabezado {
+    @apply movil:ml-[3.3rem] tablet:ml-[4.3rem] laptop:ml-[5rem] monitor:ml-[6.25rem] bg-principal text-fondo px-6 py-5;
+}
+
+#textoSeccion {
+    @apply font-mont text-lg text-letra mx-3;
+}
+
+#texto {
+    @apply font-lato text-letra font-medium;
+}
+
+/* Estilo para los botones */
+.btn {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.guardar-insumo:hover {
+    background: #0b7dda;
+}
+
+.btn-show {
+    background-color: #3498db;
+    color: #fff;
+}
+.btn-show:hover {
+    background-color: #127cc2;
+    color: #fff;
+}
+.btn-edit {
+    background-color: #2ecc71;
+    color: #fff;
+}
+.btn-edit:hover {
+    background-color: #12ac52;
+    color: #fff;
+}
+.btn-delete {
+    background-color: #e74c3c;
+    color: #fff;
+}
+.btn-delete:hover {
+    background-color: #c22c1b;
+    color: #fff;
+}
+
+.btn-ins {
+    background-color: #5659eb;
+    color: #fff;
+}
+
+.btn-ins:hover {
+    background-color: #3335d4;
+    color: #fff;
+}
+
+/*Se ocupa en los reportes de las ventas*/
+.contenedor-transparente {
+    border: 2px solid #000; /* Cambia el color y el grosor del borde según tus necesidades */
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco con 50% de transparencia */
+    padding: 20px; /* Espacio interno para que el contenido no quede pegado a los bordes */
+    border-radius: 10px; /* Bordes redondeados, opcional */
+}
+
+/*Se ocupa en los reportes de las ventas (scroll)*/
+.scroll-container {
+    width: 100%; /* Se adapta al ancho de la pantalla */
+    max-width: 100%;
+    height: 500px; /* Altura */
+    overflow-x: auto; /* Habilita el scroll lateral */
+    white-space: nowrap; /* Evita que el contenido se ajuste automáticamente en varias líneas */
+    
+}
