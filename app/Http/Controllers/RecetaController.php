@@ -34,17 +34,17 @@ class RecetaController extends Controller
             'insumo_id' => 'required|exists:insumos,id',
             'cantidad_requerida' => 'required|numeric|min:0',
         ]);
-    
+
         // Crear el registro en la tabla receta
-        $receta = Receta::create([
+        Receta::create([
             'producto_id' => $request->producto_id,
             'insumo_id' => $request->insumo_id,
             'cantidad_requerida' => $request->cantidad_requerida,
         ]);
-    
+
         // Obtener todas las recetas relacionadas al producto seleccionado
         $recetasProducto = Receta::where('producto_id', $request->producto_id)->get();
-    
+
         // Redirigir con la información de la receta y abrir el modal
         return redirect()->route('listar.recetas')->with([
             'modalOpen' => true,
@@ -52,6 +52,7 @@ class RecetaController extends Controller
             'recetasProducto' => $recetasProducto,
         ]);
     }
+
     
 
 

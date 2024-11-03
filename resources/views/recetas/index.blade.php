@@ -81,11 +81,11 @@
                 <form id="recetaForm" method="POST" action="{{ route('receta.store') }}">
                     @csrf
                     <input type="hidden" name="producto_id" id="producto_id" value="{{ session('producto_id') }}">
-
+                    
                     <!-- Seleccionar insumo -->
                     <div class="mb-4">
                         <label for="insumo" class="block text-sm font-medium text-gray-700">Insumo:</label>
-                        <select name="insumo_id" id="insumo" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                        <select name="insumo_id" id="insumo" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                             <option value="" disabled selected>-- Selecciona un Insumo --</option>
                             @foreach ($insumos as $insumo)
                                 <option value="{{ $insumo->id }}">{{ $insumo->nombre }}</option>
@@ -96,78 +96,39 @@
                     <!-- Cantidad requerida -->
                     <div class="mb-4">
                         <label for="cantidad_requerida" class="block text-sm font-medium text-gray-700">Cantidad Requerida:</label>
-                        <input type="number" step="0.01" name="cantidad_requerida" id="cantidad_requerida" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
+                        <input type="number" name="cantidad_requerida" id="cantidad_requerida" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500" required>
                     </div>
 
-                    <button type="submit" class="w-full px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700">Agregar</button>
+                    <button type="submit" class="px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700">Guardar Receta</button>
                 </form>
-
-                <!-- Tabla para mostrar insumos agregados -->
-                <div class="mt-4">
-                    <h6 class="text-lg font-semibold mb-2">Insumos Agregados</h6>
-                    <table class="min-w-full border border-gray-300">
-                        <thead>
-                            <tr>
-                                <th class="border px-4 py-2">Insumo</th>
-                                <th class="border px-4 py-2">Cantidad</th>
-                                <th class="border px-4 py-2">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (session('recetasProducto') && session('recetasProducto')->isNotEmpty())
-                                @foreach (session('recetasProducto') as $receta)
-                                    <tr>
-                                        <td class="border px-4 py-2 text-center">{{ $receta->insumo->nombre }}</td>
-                                        <td class="border px-4 py-2 text-center">{{ $receta->cantidad_requerida }}</td>
-                                        <td class="border px-4 py-2 text-center">
-                                            <form action="{{ route('receta.eliminarInsumo', $receta->id) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-delete" type="submit" onclick="return confirm('¿Seguro de que desea eliminar este insumo?')">
-                                                    <i class="fa fa-fw fa-trash"></i>Eliminar
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="3" class="border px-4 py-2 text-center">No hay insumos agregados</td>
-                                </tr>
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </div>
 
     <script>
+        // Función para abrir y cerrar el modal
         function toggleModal() {
             const modal = document.getElementById('myModal');
             modal.classList.toggle('hidden');
+            modal.classList.toggle('flex');
         }
 
+        // Función para finalizar la receta y cerrar el modal
         function finalizarReceta() {
-            const modal = document.getElementById('myModal');
-            modal.classList.add('hidden');
+            toggleModal();
+            // Opcional: Puedes agregar lógica aquí si necesitas realizar alguna acción adicional al cerrar el modal
         }
 
-        function setProductoId(value) {
-            document.getElementById('producto_id').value = value; // Actualiza el producto_id
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            @if (session('modalOpen'))
-                const modal = document.getElementById('myModal');
-                modal.classList.remove('hidden'); // Asegura que el modal esté visible
-                // Establece el producto previamente seleccionado
-                const productoId = "{{ session('producto_id') }}";
-                if (productoId) {
-                    document.getElementById('productoSelect').value = productoId;
-                    document.getElementById('producto_id').value = productoId; // Asegura que el producto_id se mantenga
-                }
-            @endif
+        // Configurar el estado inicial del modal basado en la sesión
+        document.addEventListener('DOMContentLoaded', () => {
+            if ('{{ session('modalOpen') }}' === '1') {
+                toggleModal();
+            }
         });
+
+        // Establecer el ID del producto seleccionado
+        function setProductoId(id) {
+            document.getElementById('producto_id').value = id;
+        }
     </script>
 @endsection
