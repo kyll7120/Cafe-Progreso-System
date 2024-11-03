@@ -14,6 +14,9 @@ class LineaDeVentaAuxiliarController extends Controller
     public function guardarLineaAuxiliar(Request $request)
     {
         $producto = Producto::find($request->input('producto'));
+        if (!$producto) {
+            return redirect()->back()->withErrors(['Producto no encontrado.'])->withInput();
+        }
         $empleadoId = auth()->user()->id; // Obtener el id del empleado logueado
         $cantidad = $request->cantidad;
 
@@ -136,6 +139,7 @@ class LineaDeVentaAuxiliarController extends Controller
         $totalSubtotales = LineaDeVentaAuxiliar::where('empleado_id', $empleadoId)->sum('subtotal');
         $totalDescuentos = LineaDeVentaAuxiliar::where('empleado_id', $empleadoId)->sum('descuento');
 
+        dd('Redireccionando ahora...');
         return redirect()->route('ventas.registrar')->with([
             'success' => 'Línea de venta eliminada.',
             'productos' => Producto::all(),
