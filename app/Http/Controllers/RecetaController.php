@@ -46,8 +46,11 @@ class RecetaController extends Controller
         $recetasProducto = Receta::where('producto_id', $request->producto_id)->get();
 
         // Redirigir con la información de la receta y abrir el modal
-        return redirect()->route('listar.recetas', ['modalOpen' => true, 'producto_id' => $request->producto_id]);
-
+        return redirect()->route('listar.recetas')->with([
+            'modalOpen' => true,
+            'producto_id' => $request->producto_id,
+            'recetasProducto' => $recetasProducto,
+        ]);
     }
 
     public function showRecetaModal(Request $request)
