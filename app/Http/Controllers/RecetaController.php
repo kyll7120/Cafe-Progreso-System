@@ -51,7 +51,7 @@ class RecetaController extends Controller
         session()->flash('recetasProducto', $recetasProducto);
 
         // Recargar la misma vista
-        return redirect()->route('receta.index'); // Ajusta esta ruta si es necesario
+        return redirect()->route('listar.recetas'); // Ajusta esta ruta si es necesario
     }
 
 
