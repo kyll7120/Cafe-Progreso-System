@@ -25,7 +25,6 @@ class VentasController extends Controller
         // Aplicar paginación a las líneas de venta
         $lineasDeVenta = LineaDeVentaAuxiliar::where('empleado_id', $empleadoId)->paginate(10); // Cambia 10 por el número deseado de elementos por página
         
-        dd($productos, $lineasDeVenta, $totalDescuentos, $totalSubtotales);
         return view('ventas.registrarVenta', compact('productos', 'lineasDeVenta', 'totalDescuentos', 'totalSubtotales'))
             ->with('i', (request()->input('page', 1) - 1) * 10); // Ajuste para el número de la lista
     }

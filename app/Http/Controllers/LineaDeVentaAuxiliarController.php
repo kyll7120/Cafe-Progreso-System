@@ -139,13 +139,7 @@ class LineaDeVentaAuxiliarController extends Controller
         $totalSubtotales = LineaDeVentaAuxiliar::where('empleado_id', $empleadoId)->sum('subtotal');
         $totalDescuentos = LineaDeVentaAuxiliar::where('empleado_id', $empleadoId)->sum('descuento');
 
-        return redirect()->route('ventas.registrar')->with([
-            'success' => 'Línea de venta eliminada.',
-            'productos' => Producto::all(),
-            'lineasDeVenta' => LineaDeVentaAuxiliar::where('empleado_id', $empleadoId)->get(), // Solo líneas del empleado logueado
-            'totalSubtotales' => $totalSubtotales,
-            'totalDescuentos' => $totalDescuentos,
-        ]);
+        return redirect()->route('ventas.registrar');
     }
 
 }
