@@ -17,7 +17,7 @@ class AsistenciaController extends Controller
     {        
         // Obtener todos los empleados
         $empleados = User::paginate(10); // Cambia 10 por el número deseado de elementos por página
-        $horaActual = now(); // Hora actual
+        $horaActual = now()->setTimezone('America/El_Salvador'); // Hora actual
 
         return view('administracion.asistenciaEmpleado', compact('empleados', 'horaActual'))
             ->with('i', (request()->input('page', 1) - 1) * 10); // Ajuste para el número de la lista
@@ -41,8 +41,8 @@ class AsistenciaController extends Controller
 
         // Si el modo es rápido, usar la fecha y hora actual
         if ($modo === 'rapido') {
-            $fecha = now()->format('Y-m-d'); // Aseguramos formato Y-m-d para MySQL
-            $hora = now()->format('H:i'); // Hora en formato 24 horas
+            $fecha = now()->setTimezone('America/El_Salvador')->format('Y-m-d'); // Aseguramos formato Y-m-d para MySQL
+            $hora = now()->setTimezone('America/El_Salvador')->format('H:i'); // Hora en formato 24 horas
         } else {
             // Validar la fecha y la hora si el modo es personalizado
             $request->validate([
@@ -55,7 +55,7 @@ class AsistenciaController extends Controller
 
             // Validación de hora mayor a la actual para el día actual
             if (Carbon::parse($fecha)->isSameDay(Carbon::today())) {
-                $horaActual = now()->format('H:i');
+                $horaActual = now()->setTimezone('America/El_Salvador')->format('H:i');
                 if ($hora > $horaActual) {
                     return back()->withErrors(['hora' => 'La hora no puede ser mayor a la hora actual si la fecha es hoy.'])->withInput();
                 }
@@ -91,7 +91,7 @@ class AsistenciaController extends Controller
 
         if ($modo === 'rapido') {
             $fecha = $ultimaAsistencia->fecha; // Usar la fecha del último check_in
-            $hora = now()->format('H:i');
+            $hora = now()->setTimezone('America/El_Salvador')->format('H:i');
         } else {
             $request->validate([
                 'hora' => 'required',
